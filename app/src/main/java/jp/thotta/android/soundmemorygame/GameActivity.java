@@ -21,22 +21,19 @@ public class GameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
         Intent intent = getIntent();
         fColumn = intent.getIntExtra("column", 2);
         fRow = intent.getIntExtra("row", 2);
         TableLayout tableLayout = ButtonLayoutGenerator.generate(fRow, fColumn, this);
-        Button btn11 = (Button)findViewById(1*fRow + 1);
-        btn11.setText("Text is text");
-
-        gameManager.setGameActivity(this);
-
+        gameManager.initialize(this);
         Button btn = (Button) findViewById(R.id.button_start_stop);
         btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameManager.nextQuestion();
-                ((Button)v).setText("Stop");
+                if(GameManager.getInstance().getStatus() == GameManager.STATUS_INITIALIZED) {
+                    gameManager.nextQuestion();
+                    ((Button) v).setText("Stop");
+                }
             }
         });
     }

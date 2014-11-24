@@ -33,7 +33,7 @@ public class ButtonLayoutGenerator {
     public static TableLayout generate(int row, int column, Activity activity) {
         setOnkai();
         TableLayout tableLayout = (TableLayout)activity.findViewById(R.id.button_table);
-//        tableLayout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        CircleTouchListener circleTouchListener = new CircleTouchListener(activity);
         for(int iRow = 0; iRow < row; iRow++) {
             TableRow tableRow = new TableRow(activity);
             for(int iCol = 0; iCol < column; iCol++) {
@@ -42,9 +42,9 @@ public class ButtonLayoutGenerator {
                 btn.setWidth((int)(120*scale));
                 btn.setHeight((int) (120 * scale));
                 btn.setId(iRow * row + iCol);
-                btn.setBackground(activity.getResources().getDrawable(R.drawable.circle_button));
+                btn.setBackgroundResource(R.drawable.circle_button);
                 btn.setText("[" + iRow + ", " + iCol + "] " + onkai[btn.getId()]);
-                btn.setOnTouchListener(new CircleTouchListener());
+                btn.setOnTouchListener(circleTouchListener);
                 tableRow.addView(btn);
             }
             tableLayout.addView(tableRow);

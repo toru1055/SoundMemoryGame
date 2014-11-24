@@ -34,38 +34,61 @@ public class GameManager {
         return instance;
     }
 
-    public void setGameActivity(GameActivity gameActivity) {
+    public int getStatus() {
+        return fStatus;
+    }
+
+    public void initialize(GameActivity gameActivity) {
         this.fGameActivity = gameActivity;
+        setStatus(STATUS_INITIALIZED);
         this.fStartButton = fGameActivity.findViewById(R.id.button_start_stop);
         resetQuestionList();
     }
 
     public void nextQuestion() {
         addQuestion();
+        setStatus(STATUS_QUESTIONING);
         fStartButton.startAnimation(fAnimation);
     }
 
     public void repeatQuestion() {
+        setStatus(STATUS_QUESTIONING);
         fStartButton.startAnimation(fAnimation);
     }
 
+    public void finishQuestion() {
+        setStatus(STATUS_WAIT_ANSWER);
+    }
+
     public void answer(int buttonId) {
-        int row = (int) buttonId / fGameActivity.getRow();
-        int column = buttonId % fGameActivity.getRow();
-        Question answerForCurrentQuestion = new Question(row, column);
-        Question currentQuestion = questionList.get(fCurrentQuestionPointer);
-        if(currentQuestion.equals(answerForCurrentQuestion)) {
-            fCurrentQuestionPointer++;
-            if(fCurrentQuestionPointer >= questionList.size()) {
+        if(fStatus == STATUS_WAIT_ANSWER) {
+            int row = (int) buttonId / fGameActivity.getRow();
+            int column = buttonId % fGameActivity.getRow();
+            Question answerForCurrentQuestion = new Question(row, column);
+            Question currentQuestion = questionList.get(fCurrentQuestionPointer);
+            if (currentQuestion.equals(answerForCurrentQuestion)) {
+                fCurrentQuestionPointer++;
+                if (fCurrentQuestionPointer >= questionList.size()) {
+                    fCurrentQuestionPointer = 0;
+                    Toast.makeText(fGameActivity, "Correct answer!", Toast.LENGTH_SHORT).show();
+                    nextQuestion();
+                }
+            } else {
                 fCurrentQuestionPointer = 0;
-                Toast.makeText(fGameActivity, "Correct answer!", Toast.LENGTH_SHORT).show();
-                nextQuestion();
+                Toast.makeText(fGameActivity, "Incorrect! Repeat same question.", Toast.LENGTH_SHORT).show();
+                repeatQuestion();
             }
         } else {
-            fCurrentQuestionPointer = 0;
-            Toast.makeText(fGameActivity, "Incorrect! Repeat same question.", Toast.LENGTH_SHORT).show();
-            repeatQuestion();
+            Toast.makeText(
+                    fGameActivity,
+                    "Question hasn't finished! Please wait.",
+                    Toast.LENGTH_SHORT
+            ).show();
         }
+    }
+
+    private void setStatus(int status) {
+        this.fStatus = status;
     }
 
     private void addQuestion() {

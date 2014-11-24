@@ -24,7 +24,7 @@ public class ButtonAnimationListener implements Animation.AnimationListener {
         if(button.getId() != R.id.button_start_stop) {
             newAnimation.setDuration(200);
         } else {
-            newAnimation.setDuration(500);
+            newAnimation.setDuration(1000);
         }
         newAnimation.setAnimationListener(new ButtonAnimationListener(button, animation));
         return newAnimation;
@@ -45,6 +45,8 @@ public class ButtonAnimationListener implements Animation.AnimationListener {
         }
         if(fNextAnimation != null) {
             fButton.startAnimation(fNextAnimation);
+        } else {
+            GameManager.getInstance().finishQuestion();
         }
     }
 
