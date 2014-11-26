@@ -1,12 +1,10 @@
 package jp.thotta.android.soundmemorygame;
 
-import android.app.Activity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -27,6 +25,7 @@ public class GameManager {
     private Animation fAnimation = null;
     private int fCurrentQuestionPointer = 0;
     private View fStartButton;
+    private ScoreManager scoreManager;
 
     private GameManager(){}
 
@@ -40,6 +39,7 @@ public class GameManager {
 
     public void initialize(GameActivity gameActivity) {
         this.fGameActivity = gameActivity;
+        scoreManager = new ScoreManager(this.fGameActivity);
         setStatus(STATUS_INITIALIZED);
         this.fStartButton = fGameActivity.findViewById(R.id.button_start_stop);
         resetQuestionList();
@@ -49,6 +49,7 @@ public class GameManager {
         addQuestion();
         setStatus(STATUS_QUESTIONING);
         fStartButton.startAnimation(fAnimation);
+        scoreManager.startScoring();
     }
 
     public void repeatQuestion() {
@@ -69,6 +70,9 @@ public class GameManager {
             if (currentQuestion.equals(answerForCurrentQuestion)) {
                 fCurrentQuestionPointer++;
                 if (fCurrentQuestionPointer >= questionList.size()) {
+                    scoreManager.endScoring();
+                    scoreManager.calcScore(questionList.size());
+                    scoreManager.updateView();
                     fCurrentQuestionPointer = 0;
                     Toast.makeText(fGameActivity, "Correct answer!", Toast.LENGTH_SHORT).show();
                     nextQuestion();
