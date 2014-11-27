@@ -38,7 +38,8 @@ public class ScoreManager {
         if(duration < MILL) {
             duration = MILL;
         }
-        this.score += questionSize * questionSize * gameActivity.getRow() * MILL / duration;
+        this.score += questionSize * questionSize *
+                gameActivity.getRow() * gameActivity.getColumn() * MILL / duration;
     }
 
     public void updateView() {
