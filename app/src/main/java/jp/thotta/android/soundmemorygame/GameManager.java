@@ -26,6 +26,7 @@ public class GameManager {
     private int fCurrentQuestionPointer = 0;
     private View fStartButton;
     private ScoreManager scoreManager;
+    private LifeManager lifeManager;
 
     private GameManager(){}
 
@@ -40,6 +41,7 @@ public class GameManager {
     public void initialize(GameActivity gameActivity) {
         this.fGameActivity = gameActivity;
         scoreManager = new ScoreManager(this.fGameActivity);
+        lifeManager = new LifeManager(this.fGameActivity);
         setStatus(STATUS_INITIALIZED);
         this.fStartButton = fGameActivity.findViewById(R.id.button_start_stop);
         resetQuestionList();
@@ -63,7 +65,7 @@ public class GameManager {
 
     public void answer(int buttonId) {
         if(fStatus == STATUS_WAIT_ANSWER) {
-            int row = (int) buttonId / fGameActivity.getRow();
+            int row = buttonId / fGameActivity.getRow();
             int column = buttonId % fGameActivity.getRow();
             Question answerForCurrentQuestion = new Question(row, column);
             Question currentQuestion = questionList.get(fCurrentQuestionPointer);
@@ -80,6 +82,7 @@ public class GameManager {
             } else {
                 fCurrentQuestionPointer = 0;
                 Toast.makeText(fGameActivity, "Incorrect! Repeat same question.", Toast.LENGTH_SHORT).show();
+                lifeManager.deleteLife();
                 repeatQuestion();
             }
         } else {

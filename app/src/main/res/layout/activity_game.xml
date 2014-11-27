@@ -6,29 +6,61 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="jp.thotta.android.soundmemorygame.GameActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/text_score" />
-
-    <TableLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/button_table"
-        android:layout_below="@+id/text_score"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/button_start_stop">
-    </TableLayout>
+        android:layout_alignParentStart="true">
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/layout_game_info">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Score: "
+                android:id="@+id/text_label_score"/>
+            <TextView
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/text_label_score"
+                android:id="@+id/text_score" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Life: "
+                android:layout_toLeftOf="@+id/text_life"
+                android:id="@+id/text_label_life"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="★★★"
+                android:id="@+id/text_life"/>
+
+        </RelativeLayout>
+
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/button_table"
+            android:layout_centerHorizontal="true">
+        </TableLayout>
+
+
+
+    </LinearLayout>
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Start"
         android:id="@+id/button_start_stop"
-        android:layout_toEndOf="@+id/text_score"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/button_table"
-        android:layout_alignEnd="@+id/button_table"
-        android:layout_marginRight="70dp" />
-
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>
