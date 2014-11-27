@@ -5,8 +5,6 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
-import static android.view.ViewGroup.LayoutParams;
-
 /**
  * Created by thotta on 14/11/16.
  */
