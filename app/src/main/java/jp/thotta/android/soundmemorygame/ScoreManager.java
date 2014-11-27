@@ -18,7 +18,11 @@ public class ScoreManager {
 
     public ScoreManager(GameActivity gameActivity) {
         this.gameActivity = gameActivity;
-        this.score = 0;
+    }
+
+    public void initialize() {
+        this.score = 0;;
+        updateView();
     }
 
     public void startScoring() {

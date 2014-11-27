@@ -21,11 +21,14 @@ public class LifeManager {
     }
 
     public void deleteLife() {
-        life--;
-        updateView();
-        if(life <= 0) {
-            // Game end
+        if(life > 0) {
+            life--;
         }
+        updateView();
+    }
+
+    public int getLife() {
+        return life;
     }
 
     private void updateView() {

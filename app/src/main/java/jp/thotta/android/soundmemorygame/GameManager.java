@@ -38,13 +38,12 @@ public class GameManager {
         return fStatus;
     }
 
-    public void initialize(GameActivity gameActivity) {
+    public void setActivity(GameActivity gameActivity) {
         this.fGameActivity = gameActivity;
         scoreManager = new ScoreManager(this.fGameActivity);
         lifeManager = new LifeManager(this.fGameActivity);
-        setStatus(STATUS_INITIALIZED);
         this.fStartButton = fGameActivity.findViewById(R.id.button_start_stop);
-        resetQuestionList();
+        initGame();
     }
 
     public void nextQuestion() {
@@ -81,9 +80,18 @@ public class GameManager {
                 }
             } else {
                 fCurrentQuestionPointer = 0;
-                Toast.makeText(fGameActivity, "Incorrect! Repeat same question.", Toast.LENGTH_SHORT).show();
                 lifeManager.deleteLife();
-                repeatQuestion();
+                if(lifeManager.getLife() > 0) {
+                    Toast.makeText(
+                            fGameActivity,
+                            "Incorrect! Repeat same question.",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                    repeatQuestion();
+                } else {
+                    Toast.makeText(fGameActivity, "Game Over!!", Toast.LENGTH_LONG).show();
+                    initGame();
+                }
             }
         } else {
             Toast.makeText(
@@ -92,6 +100,18 @@ public class GameManager {
                     Toast.LENGTH_SHORT
             ).show();
         }
+    }
+
+    private void initGame() {
+        questionList.clear();
+        setStatus(STATUS_INITIALIZED);
+        ((Button)fStartButton).setText("Start");
+    }
+
+    public void startGame() {
+        lifeManager.initialize();
+        scoreManager.initialize();
+        nextQuestion();
     }
 
     private void setStatus(int status) {
@@ -111,10 +131,6 @@ public class GameManager {
         }
         // For first duration.
         fAnimation = ButtonAnimationListener.pushAnimation((Button)fStartButton, fAnimation);
-    }
-
-    private void resetQuestionList() {
-        questionList.clear();
     }
 
     private Question generateQuestion() {

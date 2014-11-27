@@ -24,14 +24,14 @@ public class GameActivity extends Activity {
         Intent intent = getIntent();
         fColumn = intent.getIntExtra("column", 2);
         fRow = intent.getIntExtra("row", 2);
-        TableLayout tableLayout = ButtonLayoutGenerator.generate(fRow, fColumn, this);
-        gameManager.initialize(this);
+        ButtonLayoutGenerator.generate(fRow, fColumn, this);
+        gameManager.setActivity(this);
         Button btn = (Button) findViewById(R.id.button_start_stop);
         btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(GameManager.getInstance().getStatus() == GameManager.STATUS_INITIALIZED) {
-                    gameManager.nextQuestion();
+                    gameManager.startGame();
                     ((Button) v).setText("Stop");
                 }
             }
