@@ -3,6 +3,7 @@ package jp.thotta.android.soundmemorygame;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.LinkedList;
@@ -27,6 +28,7 @@ public class GameManager {
     private View fStartButton;
     private ScoreManager scoreManager;
     private LifeManager lifeManager;
+    private ScoreRecordDBHelper scoreRecordDB;
 
     private GameManager(){}
 
@@ -43,6 +45,7 @@ public class GameManager {
         scoreManager = new ScoreManager(this.fGameActivity);
         lifeManager = new LifeManager(this.fGameActivity);
         this.fStartButton = fGameActivity.findViewById(R.id.button_start_stop);
+        scoreRecordDB = new ScoreRecordDBHelper(fGameActivity);
         initGame();
     }
 
@@ -90,6 +93,10 @@ public class GameManager {
                     repeatQuestion();
                 } else {
                     Toast.makeText(fGameActivity, "Game Over!!", Toast.LENGTH_LONG).show();
+                    if(scoreManager.getScore() > scoreRecordDB.getHighScore()) {
+                        Toast.makeText(fGameActivity, "Congratulations! You Got High Score!", Toast.LENGTH_LONG).show();
+                    }
+                    addGameScore(scoreManager.getScore());
                     initGame();
                 }
             }
@@ -102,10 +109,22 @@ public class GameManager {
         }
     }
 
+    private void addGameScore(int score) {
+        scoreRecordDB.addGameScore(score);
+        updateHighScoreView();
+    }
+
+    private void updateHighScoreView() {
+        int highScore = scoreRecordDB.getHighScore();
+        TextView textView = (TextView) fGameActivity.findViewById(R.id.text_high_score);
+        textView.setText(String.valueOf(highScore));
+    }
+
     private void initGame() {
         questionList.clear();
         setStatus(STATUS_INITIALIZED);
         ((Button)fStartButton).setText("Start");
+        updateHighScoreView();
     }
 
     public void startGame() {

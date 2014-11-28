@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 public class MainActivity extends Activity {
@@ -20,6 +21,15 @@ public class MainActivity extends Activity {
         btn_easy.setOnClickListener(new ModeButtonClickListener(2, 2, this));
         btn_normal.setOnClickListener(new ModeButtonClickListener(3, 3, this));
         btn_hard.setOnClickListener(new ModeButtonClickListener(4, 4, this));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ScoreRecordDBHelper db = new ScoreRecordDBHelper(this);
+        int highScore = db.getHighScore();
+        TextView textHighScore = (TextView) findViewById(R.id.text_high_score);
+        textHighScore.setText(String.valueOf(highScore));
     }
 
 

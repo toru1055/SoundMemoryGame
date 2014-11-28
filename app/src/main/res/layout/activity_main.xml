@@ -5,34 +5,58 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="High Score:"
+        android:id="@+id/text_label_high_score"
+        android:layout_marginTop="42dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/button_easy"
+        android:layout_alignStart="@+id/button_easy" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="0"
+        android:id="@+id/text_high_score"
+        android:layout_marginTop="26dp"
+        android:layout_below="@+id/text_label_high_score"
+        android:layout_centerHorizontal="true" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="Easy(2x2)"
         android:id="@+id/button_easy"
         android:layout_marginBottom="157dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_weight="1"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="Normal(3x3)"
         android:id="@+id/button_normal"
         android:layout_marginTop="51dp"
         android:layout_alignTop="@+id/button_easy"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_weight="1"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="Hard(4x4)"
         android:id="@+id/button_hard"
         android:layout_below="@+id/button_normal"
         android:layout_alignLeft="@+id/button_easy"
-        android:layout_alignStart="@+id/button_easy" />
+        android:layout_alignStart="@+id/button_easy"
+        android:layout_weight="1"/>
+
+
+
 
 </RelativeLayout>

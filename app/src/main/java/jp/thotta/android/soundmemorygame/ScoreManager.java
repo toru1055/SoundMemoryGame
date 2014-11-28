@@ -14,7 +14,7 @@ public class ScoreManager {
     private GameActivity gameActivity;
     private long startTime;
     private long endTime;
-    private long score;
+    private int score;
 
     public ScoreManager(GameActivity gameActivity) {
         this.gameActivity = gameActivity;
@@ -23,6 +23,10 @@ public class ScoreManager {
     public void initialize() {
         this.score = 0;;
         updateView();
+    }
+
+    public int getScore() {
+        return score;
     }
 
     public void startScoring() {
