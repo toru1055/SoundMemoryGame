@@ -57,10 +57,27 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_toRightOf="@+id/text_label_score"
                 android:id="@+id/text_score" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Life: "
+                android:layout_toLeftOf="@+id/text_question"
+                android:text=", Question: "
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/text_label_question"/>
+            <TextView
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_toLeftOf="@+id/text_label_life"
+                android:id="@+id/text_question" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=", Life: "
                 android:layout_toLeftOf="@+id/text_life"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/text_label_life"/>

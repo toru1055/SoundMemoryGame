@@ -18,9 +18,11 @@ public class MainActivity extends Activity {
         Button btn_easy = (Button)findViewById(R.id.button_easy);
         Button btn_normal = (Button)findViewById(R.id.button_normal);
         Button btn_hard = (Button)findViewById(R.id.button_hard);
+        Button btn_super_hard = (Button) findViewById(R.id.button_super_hard);
         btn_easy.setOnClickListener(new ModeButtonClickListener(2, 2, this));
         btn_normal.setOnClickListener(new ModeButtonClickListener(3, 3, this));
         btn_hard.setOnClickListener(new ModeButtonClickListener(4, 4, this));
+        btn_super_hard.setOnClickListener(new ModeButtonClickListener(5, 5, this));
     }
 
     @Override

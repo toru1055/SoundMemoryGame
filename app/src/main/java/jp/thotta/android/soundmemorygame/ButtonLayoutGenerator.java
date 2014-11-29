@@ -36,12 +36,17 @@ public class ButtonLayoutGenerator {
             TableRow tableRow = new TableRow(activity);
             for(int iCol = 0; iCol < column; iCol++) {
                 Button btn = new Button(activity);
-                final float scale = activity.getResources().getDisplayMetrics().density;
-                btn.setWidth((int)(120*scale));
-                btn.setHeight((int) (120 * scale));
+                float scale = activity.getResources().getDisplayMetrics().density;
+                int widthPixels = activity.getResources().getDisplayMetrics().widthPixels - 100;
+                btn.setWidth((int)(widthPixels / column));
+                btn.setHeight((int) (widthPixels / column));
                 btn.setId(iRow * row + iCol);
                 btn.setBackgroundResource(R.drawable.circle_button);
-                btn.setText("[" + iRow + ", " + iCol + "] " + onkai[btn.getId()]);
+                if(row <= 4) {
+                    btn.setText(onkai[btn.getId()]);
+                } else {
+                    btn.setText(String.valueOf(btn.getId()));
+                }
                 btn.setOnTouchListener(circleTouchListener);
                 tableRow.addView(btn);
             }

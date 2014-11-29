@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:text="Easy(2x2)"
         android:id="@+id/button_easy"
-        android:layout_marginBottom="157dp"
+        android:layout_marginBottom="200dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_weight="1"/>
@@ -52,6 +52,15 @@
         android:text="Hard(4x4)"
         android:id="@+id/button_hard"
         android:layout_below="@+id/button_normal"
+        android:layout_alignLeft="@+id/button_easy"
+        android:layout_alignStart="@+id/button_easy"
+        android:layout_weight="1"/>
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Super Hard(5x5)"
+        android:id="@+id/button_super_hard"
+        android:layout_below="@+id/button_hard"
         android:layout_alignLeft="@+id/button_easy"
         android:layout_alignStart="@+id/button_easy"
         android:layout_weight="1"/>

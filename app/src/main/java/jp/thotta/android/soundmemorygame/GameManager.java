@@ -54,6 +54,7 @@ public class GameManager {
         setStatus(STATUS_QUESTIONING);
         fStartButton.startAnimation(fAnimation);
         scoreManager.startScoring();
+        updateQuestionSizeView();
     }
 
     public void repeatQuestion() {
@@ -118,6 +119,11 @@ public class GameManager {
         int highScore = scoreRecordDB.getHighScore();
         TextView textView = (TextView) fGameActivity.findViewById(R.id.text_high_score);
         textView.setText(String.valueOf(highScore));
+    }
+
+    private void updateQuestionSizeView() {
+        TextView textView = (TextView) fGameActivity.findViewById(R.id.text_question);
+        textView.setText(String.valueOf(questionList.size()));
     }
 
     private void initGame() {
