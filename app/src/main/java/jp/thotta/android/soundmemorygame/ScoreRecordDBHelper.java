@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class ScoreRecordDBHelper extends SQLiteOpenHelper {
     public ScoreRecordDBHelper(Context context) {
-        super(context, "score_record.db", null, 4);
+        super(context, "score_record.db", null, 5);
     }
 
     @Override

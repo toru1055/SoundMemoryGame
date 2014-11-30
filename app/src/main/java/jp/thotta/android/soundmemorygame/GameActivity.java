@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
+import android.widget.Toast;
 
 import static android.view.View.OnClickListener;
 
@@ -25,17 +26,29 @@ public class GameActivity extends Activity {
         fColumn = intent.getIntExtra("column", 2);
         fRow = intent.getIntExtra("row", 2);
         ButtonLayoutGenerator.generate(fRow, fColumn, this);
-        gameManager.setActivity(this);
+        GameManager.getInstance().setActivity(this);
         Button btn = (Button) findViewById(R.id.button_start_stop);
         btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(GameManager.getInstance().getStatus() == GameManager.STATUS_INITIALIZED) {
-                    gameManager.startGame();
-                    ((Button) v).setText("Stop");
+                if(GameManager.getInstance().getStatus() == GameManager.STATUS_INITIALIZED ||
+                   GameManager.getInstance().getStatus() == GameManager.STATUS_BE_FINISHED) {
+                    GameManager.getInstance().startGame();
+                    ((Button) v).setText("Finish Game");
+                } else {
+                    GameManager.getInstance().finishGame();
                 }
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(GameManager.getInstance().getStatus() != GameManager.STATUS_INITIALIZED &&
+           GameManager.getInstance().getStatus() != GameManager.STATUS_BE_FINISHED) {
+            GameManager.getInstance().finishGame();
+        }
     }
 
     public View findButtonByRowCol(int row, int col) {

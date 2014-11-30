@@ -19,6 +19,7 @@ public class GameManager {
     public static final int STATUS_INITIALIZED = 0;
     public static final int STATUS_QUESTIONING = 1;
     public static final int STATUS_WAIT_ANSWER = 2;
+    public static final int STATUS_BE_FINISHED = 3;
 
     private GameActivity fGameActivity;
     private int fStatus = STATUS_INITIALIZED;
@@ -58,12 +59,15 @@ public class GameManager {
     }
 
     public void repeatQuestion() {
+        showToastText("Incorrect Answer! Repeat same question.");
         setStatus(STATUS_QUESTIONING);
         fStartButton.startAnimation(fAnimation);
     }
 
     public void finishQuestion() {
-        setStatus(STATUS_WAIT_ANSWER);
+        if(fStatus != STATUS_BE_FINISHED) {
+            setStatus(STATUS_WAIT_ANSWER);
+        }
     }
 
     public void answer(int buttonId) {
@@ -73,41 +77,35 @@ public class GameManager {
             Question answerForCurrentQuestion = new Question(row, column);
             Question currentQuestion = questionList.get(fCurrentQuestionPointer);
             if (currentQuestion.equals(answerForCurrentQuestion)) {
-                fCurrentQuestionPointer++;
-                if (fCurrentQuestionPointer >= questionList.size()) {
-                    scoreManager.endScoring();
-                    scoreManager.calcScore(questionList.size());
-                    scoreManager.updateView();
-                    fCurrentQuestionPointer = 0;
-                    Toast.makeText(fGameActivity, "Correct answer!", Toast.LENGTH_SHORT).show();
-                    nextQuestion();
-                }
+                answeredCorrectly();
             } else {
                 fCurrentQuestionPointer = 0;
                 lifeManager.deleteLife();
                 if(lifeManager.getLife() > 0) {
-                    Toast.makeText(
-                            fGameActivity,
-                            "Incorrect! Repeat same question.",
-                            Toast.LENGTH_SHORT
-                    ).show();
                     repeatQuestion();
                 } else {
-                    Toast.makeText(fGameActivity, "Game Over!!", Toast.LENGTH_LONG).show();
-                    if(scoreManager.getScore() > scoreRecordDB.getHighScore()) {
-                        Toast.makeText(fGameActivity, "Congratulations! You Got High Score!", Toast.LENGTH_LONG).show();
-                    }
-                    addGameScore(scoreManager.getScore());
-                    initGame();
+                    finishGame();
                 }
             }
         } else {
-            Toast.makeText(
-                    fGameActivity,
-                    "Question hasn't finished! Please wait.",
-                    Toast.LENGTH_SHORT
-            ).show();
+            showToastText("Question hasn't finished! Please wait.");
         }
+    }
+
+    private void answeredCorrectly() {
+        fCurrentQuestionPointer++;
+        if (fCurrentQuestionPointer >= questionList.size()) {
+            scoreManager.endScoring();
+            scoreManager.calcScore(questionList.size());
+            scoreManager.updateView();
+            fCurrentQuestionPointer = 0;
+            showToastText("Correct answer!");
+            nextQuestion();
+        }
+    }
+
+    private void showToastText(String text) {
+        Toast.makeText(fGameActivity, text, Toast.LENGTH_SHORT).show();
     }
 
     private void addGameScore(int score) {
@@ -141,6 +139,16 @@ public class GameManager {
         lifeManager.initialize();
         scoreManager.initialize();
         nextQuestion();
+    }
+
+    public void finishGame() {
+        if(scoreManager.getScore() > scoreRecordDB.getHighScore()) {
+            showToastText("Congratulations! You Got High Score!");
+        }
+        addGameScore(scoreManager.getScore());
+        initGame();
+        setStatus(STATUS_BE_FINISHED);
+        showToastText("Game Over!!");
     }
 
     private void setStatus(int status) {

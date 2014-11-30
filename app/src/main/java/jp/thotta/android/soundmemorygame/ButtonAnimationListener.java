@@ -43,7 +43,8 @@ public class ButtonAnimationListener implements Animation.AnimationListener {
             soundGenerator.play(fButton.getId());
             fButton.setPressed(false);
         }
-        if(fNextAnimation != null) {
+        if(fNextAnimation != null &&
+                GameManager.getInstance().getStatus() == GameManager.STATUS_QUESTIONING) {
             fButton.startAnimation(fNextAnimation);
         } else {
             GameManager.getInstance().finishQuestion();
