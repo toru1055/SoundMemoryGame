@@ -10,6 +10,7 @@ import android.media.AudioTrack;
 public class SoundGenerator {
     byte[][] audioData = new byte[16][];
     byte[] emptyData;
+    byte[] booData;
     AudioTrack track;
     final static int SAMPLE_RATE = 44100;
     final static int SOUND_VOLUME = 5;
@@ -43,6 +44,13 @@ public class SoundGenerator {
         track.write(emptyData, 0, BUFFER_SIZE);
     }
 
+    synchronized public void playBoo() {
+        track.play();
+        track.write(booData, 0, BUFFER_SIZE/2);
+        track.write(emptyData, 0, BUFFER_SIZE/2);
+        track.write(booData, 0, BUFFER_SIZE*2);
+    }
+
     void createAudioTrack() {
         track = new AudioTrack(
                 AudioManager.STREAM_MUSIC,
@@ -56,6 +64,7 @@ public class SoundGenerator {
 
     void createData() {
         emptyData = createEmptySound();
+        booData = createSquareWave(200, SOUND_VOLUME * 3);
         audioData[0] = createSquareWave(523.25);
         audioData[1] = createSquareWave(587.33);
         audioData[2] = createSquareWave(659.26);
@@ -73,13 +82,17 @@ public class SoundGenerator {
         audioData[14] = createSquareWave(2093);
         audioData[15] = createSquareWave(2349.32);
     }
-    private byte[] createSquareWave(double frequency) {
+
+    private byte[] createSquareWave(double frequency, int volume) {
         byte[] b = new byte[SAMPLE_RATE];
         for (int i = 0; i < b.length; i++) {
             double r = i / (SAMPLE_RATE / frequency);
-            b[i] = (byte)((Math.round(r) % 2 == 0) ? SOUND_VOLUME : -SOUND_VOLUME);
+            b[i] = (byte)((Math.round(r) % 2 == 0) ? volume : -volume);
         }
         return b;
+    }
+    private byte[] createSquareWave(double frequency) {
+        return createSquareWave(frequency, SOUND_VOLUME);
     }
 
     private byte[] createEmptySound() {
