@@ -12,6 +12,7 @@ public class SoundGenerator {
     byte[] emptyData;
     AudioTrack track;
     final static int SAMPLE_RATE = 44100;
+    final static int SOUND_VOLUME = 5;
     final static int BUFFER_SIZE = (int) Math.ceil(SAMPLE_RATE/2);
 
     public SoundGenerator() {
@@ -60,7 +61,7 @@ public class SoundGenerator {
         byte[] b = new byte[SAMPLE_RATE];
         for (int i = 0; i < b.length; i++) {
             double r = i / (SAMPLE_RATE / frequency);
-            b[i] = (byte)((Math.round(r) % 2 == 0) ? 100 : -100);
+            b[i] = (byte)((Math.round(r) % 2 == 0) ? SOUND_VOLUME : -SOUND_VOLUME);
         }
         return b;
     }
