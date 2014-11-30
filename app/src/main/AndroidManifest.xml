@@ -19,6 +19,8 @@
         </activity>
         <activity
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:exported="false"
             android:name="jp.thotta.android.soundmemorygame.GameActivity"
             android:label="@string/title_activity_game" >
         </activity>
