@@ -37,7 +37,7 @@ public class ButtonLayoutGenerator {
             for(int iCol = 0; iCol < column; iCol++) {
                 Button btn = new Button(activity);
                 float scale = activity.getResources().getDisplayMetrics().density;
-                int widthPixels = (int)(activity.getResources().getDisplayMetrics().widthPixels * 0.93);
+                int widthPixels = (int)(activity.getResources().getDisplayMetrics().widthPixels * 0.9);
                 btn.setWidth((int)(widthPixels / column));
                 btn.setHeight((int) (widthPixels / column));
                 btn.setId(iRow * row + iCol);
