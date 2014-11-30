@@ -111,8 +111,12 @@ public class GameManager {
     }
 
     private void addGameScore(int score) {
-        scoreRecordDB.addGameScore(score);
+        scoreRecordDB.addGameScore(getGameMode(), score, questionList.size() - 1);
         updateHighScoreView();
+    }
+
+    private int getGameMode() {
+        return fGameActivity.getRow();
     }
 
     private void updateHighScoreView() {
@@ -173,11 +177,7 @@ public class GameManager {
         }
 
         public boolean equals(Question question) {
-            if(this.fRow == question.fRow && this.fColumn == question.fColumn) {
-                return true;
-            } else {
-                return false;
-            }
+            return this.fRow == question.fRow && this.fColumn == question.fColumn;
         }
     }
 }

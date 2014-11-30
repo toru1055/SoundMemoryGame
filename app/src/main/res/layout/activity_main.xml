@@ -11,7 +11,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="High Score:"
         android:id="@+id/text_label_high_score"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="10dp"
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/button_easy"
         android:layout_alignStart="@+id/button_easy" />
@@ -22,16 +22,65 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="0"
         android:id="@+id/text_high_score"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/text_label_high_score"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Results"
+        android:id="@+id/text_label_results"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/text_high_score"
+        android:layout_alignLeft="@+id/text_label_high_score"
+        android:layout_alignStart="@+id/text_label_high_score" />
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="---"
+        android:gravity="left"
+        android:id="@+id/text_results_easy"
+        android:layout_marginTop="0dp"
+        android:layout_below="@+id/text_label_results"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="---"
+        android:gravity="left"
+        android:id="@+id/text_results_normal"
+        android:layout_marginTop="0dp"
+        android:layout_below="@+id/text_results_easy"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="---"
+        android:gravity="left"
+        android:id="@+id/text_results_hard"
+        android:layout_marginTop="0dp"
+        android:layout_below="@+id/text_results_normal"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="---"
+        android:gravity="left"
+        android:id="@+id/text_results_super_hard"
+        android:layout_marginTop="0dp"
+        android:layout_below="@+id/text_results_hard"
+        android:layout_centerHorizontal="true" />
+
 
     <Button
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="Easy(2x2)"
         android:id="@+id/button_easy"
-        android:layout_marginBottom="200dp"
+        android:layout_marginBottom="150dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_weight="1"/>

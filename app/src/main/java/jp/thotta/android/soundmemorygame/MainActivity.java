@@ -32,6 +32,7 @@ public class MainActivity extends Activity {
         int highScore = db.getHighScore();
         TextView textHighScore = (TextView) findViewById(R.id.text_high_score);
         textHighScore.setText(String.valueOf(highScore));
+        showResults(db);
     }
 
 
@@ -55,5 +56,18 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showResults(ScoreRecordDBHelper db) {
+        showResultView(db, R.id.text_results_easy, ScoreRecordBean.GAME_MODE_EASY);
+        showResultView(db, R.id.text_results_normal, ScoreRecordBean.GAME_MODE_NORMAL);
+        showResultView(db, R.id.text_results_hard, ScoreRecordBean.GAME_MODE_HARD);
+        showResultView(db, R.id.text_results_super_hard, ScoreRecordBean.GAME_MODE_SUPER_HARD);
+    }
+
+    private void showResultView(ScoreRecordDBHelper db, int viewId, int mode) {
+        TextView resultView = (TextView) findViewById(viewId);
+        ScoreRecordBean result = db.getHighScoreObject(mode);
+        resultView.setText(result.toString());
     }
 }

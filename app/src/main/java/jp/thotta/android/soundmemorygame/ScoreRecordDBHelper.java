@@ -11,35 +11,39 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class ScoreRecordDBHelper extends SQLiteOpenHelper {
     public ScoreRecordDBHelper(Context context) {
-        super(context, "score_record.db", null, 1);
+        super(context, "score_record.db", null, 4);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        createScoreRecordTable(db);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        //For debug
+        db.execSQL("DROP TABLE IF EXISTS score_record");
+        createScoreRecordTable(db);
+    }
+
+    private void createScoreRecordTable(SQLiteDatabase db) {
         String SQL = "create table score_record(" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "score INTEGER" +
+                "game_mode INTEGER," +
+                "score INTEGER," +
+                "question_size INTEGER," +
                 "created_at DATETIME DEFAULT CURRENT_TIMESTAMP" +
                 ")";
         db.execSQL(SQL);
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //db.execSQL("DROP TABLE IF EXISTS score_record");
-    }
-
-    @Override
-    public void onOpen(SQLiteDatabase db) {
-        // For debug
-        //db.delete("score_record", null, null);
-    }
-
-    public void addGameScore(int score) {
+    public void addGameScore(int mode, int score, int question_size) {
         ContentValues contentValues = new ContentValues();
+        contentValues.put("game_mode", mode);
         contentValues.put("score", score);
+        contentValues.put("question_size", question_size);
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        long pk = sqLiteDatabase.insert("score_record", null, contentValues);
+        sqLiteDatabase.insert("score_record", null, contentValues);
         sqLiteDatabase.close();
     }
 
@@ -57,5 +61,25 @@ public class ScoreRecordDBHelper extends SQLiteOpenHelper {
         }
         db.close();
         return score;
+    }
+
+    public ScoreRecordBean getHighScoreObject(int mode) {
+        SQLiteDatabase db = getReadableDatabase();
+        String[] columns = {"score", "question_size"};
+        String selection = "game_mode = " + mode;
+        Cursor cursor = db.query("score_record", columns, selection,
+                null, null, null, "score DESC", "1");
+        int score = 0;
+        int questionSize = 0;
+        if(cursor != null) {
+            if(cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                score = cursor.getInt(cursor.getColumnIndex("score"));
+                questionSize = cursor.getInt(cursor.getColumnIndex("question_size"));
+            }
+            cursor.close();
+        }
+        db.close();
+        return new ScoreRecordBean(mode, score, questionSize);
     }
 }
