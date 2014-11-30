@@ -27,6 +27,22 @@ public class SoundGenerator {
         track.write(emptyData, 0, BUFFER_SIZE);
     }
 
+    synchronized public void playChimeMelody() {
+        track.play();
+        track.write(audioData[7], 0, BUFFER_SIZE);
+        track.write(audioData[6], 0, BUFFER_SIZE);
+        track.write(audioData[5], 0, BUFFER_SIZE);
+        track.write(audioData[4], 0, BUFFER_SIZE);
+        track.write(audioData[7], 0, BUFFER_SIZE);
+        track.write(audioData[6], 0, BUFFER_SIZE);
+        track.write(audioData[5], 0, BUFFER_SIZE);
+        track.write(audioData[4], 0, BUFFER_SIZE);
+        track.write(audioData[7], 0, BUFFER_SIZE*2);
+        track.write(audioData[9], 0, BUFFER_SIZE*2);
+        track.write(audioData[8], 0, BUFFER_SIZE*2);
+        track.write(emptyData, 0, BUFFER_SIZE);
+    }
+
     void createAudioTrack() {
         track = new AudioTrack(
                 AudioManager.STREAM_MUSIC,
