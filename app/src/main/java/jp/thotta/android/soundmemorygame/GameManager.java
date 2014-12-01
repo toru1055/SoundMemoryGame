@@ -106,13 +106,28 @@ public class GameManager {
             showToastText("Correct answer!");
             if(getGameMode() != ScoreRecordBean.GAME_MODE_SUPER_HARD &&
                     questionList.size() >= ScoreRecordBean.STAGE_QUESTION_SIZE) {
-                SoundGenerator.getInstance().playChimeMelody();
+                playChimeMelody();
                 showToastText("Congratulations! You Have Completed This Stage!");
                 finishGame(questionList.size());
             } else {
                 nextQuestion();
             }
         }
+    }
+
+    private void playChimeMelody() {
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                SoundGenerator.getInstance().playChimeMelody();
+            }
+        };
+        new Thread(r).start();
     }
 
     private void showToastText(String text) {
