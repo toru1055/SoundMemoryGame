@@ -8,17 +8,29 @@ import android.media.AudioTrack;
  * Created by thotta on 14/11/21.
  */
 public class SoundGenerator {
+    private static final SoundGenerator instance = new SoundGenerator();
     byte[][] audioData = new byte[16][];
     byte[] emptyData;
     byte[] booData;
     AudioTrack track;
+    private boolean isInitialized = false;
     final static int SAMPLE_RATE = 44100;
     final static int SOUND_VOLUME = 5;
     final static int BUFFER_SIZE = (int) Math.ceil(SAMPLE_RATE/2);
 
-    public SoundGenerator() {
+    private SoundGenerator() {}
+
+    public static SoundGenerator getInstance() {
+        if(!instance.isInitialized) {
+            instance.init();
+        }
+        return instance;
+    }
+
+    private void init() {
         createData();
         createAudioTrack();
+        isInitialized = true;
     }
 
     synchronized public void play(int idx) {

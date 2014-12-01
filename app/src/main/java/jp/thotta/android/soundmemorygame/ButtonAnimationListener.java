@@ -12,7 +12,7 @@ import android.widget.Button;
 public class ButtonAnimationListener implements Animation.AnimationListener {
     private Button fButton;
     private Animation fNextAnimation;
-    private static SoundGenerator soundGenerator = new SoundGenerator();
+    private static SoundGenerator soundGenerator = SoundGenerator.getInstance();
 
     public ButtonAnimationListener(Button button, Animation nextAnimation) {
         this.fNextAnimation = nextAnimation;

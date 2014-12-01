@@ -11,7 +11,7 @@ import android.widget.Toast;
  * Created by thotta on 14/11/16.
  */
 public class CircleTouchListener implements View.OnTouchListener {
-    private final static SoundGenerator fSoundGenerator = new SoundGenerator();
+    private final static SoundGenerator fSoundGenerator = SoundGenerator.getInstance();
     private Activity fGameActivity;
 
     public CircleTouchListener(Activity activity) {

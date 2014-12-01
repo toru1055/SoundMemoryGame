@@ -7,6 +7,7 @@ import java.io.PrintStream;
  * Created by thotta on 14/11/30.
  */
 public class ScoreRecordBean {
+    public static final int STAGE_QUESTION_SIZE = 12;
     public static final int GAME_MODE_EASY = 2;
     public static final int GAME_MODE_NORMAL = 3;
     public static final int GAME_MODE_HARD = 4;
@@ -35,6 +36,10 @@ public class ScoreRecordBean {
         this.mode = mode;
         this.score = score;
         this.questionSize = questionSize;
+    }
+
+    public boolean isCleared() {
+        return (this.questionSize >= STAGE_QUESTION_SIZE);
     }
 
     @Override

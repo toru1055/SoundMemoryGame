@@ -25,6 +25,19 @@ public class MainActivity extends Activity {
         btn_super_hard.setOnClickListener(new ModeButtonClickListener(5, 5, this));
     }
 
+    private void setModeButtonStatusAll(ScoreRecordDBHelper db) {
+        Button btn_normal = (Button)findViewById(R.id.button_normal);
+        Button btn_hard = (Button)findViewById(R.id.button_hard);
+        Button btn_super_hard = (Button) findViewById(R.id.button_super_hard);
+        setModeButtonStatus(db, btn_normal, ScoreRecordBean.GAME_MODE_EASY);
+        setModeButtonStatus(db, btn_hard, ScoreRecordBean.GAME_MODE_NORMAL);
+        setModeButtonStatus(db, btn_super_hard, ScoreRecordBean.GAME_MODE_HARD);
+    }
+    private void setModeButtonStatus(ScoreRecordDBHelper db, Button button, int previousMode) {
+        ScoreRecordBean previousModeResult = db.getHighScoreObject(previousMode);
+        button.setEnabled(previousModeResult.isCleared());
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -33,6 +46,7 @@ public class MainActivity extends Activity {
         TextView textHighScore = (TextView) findViewById(R.id.text_high_score);
         textHighScore.setText(String.valueOf(highScore));
         showResults(db);
+        setModeButtonStatusAll(db);
     }
 
 
