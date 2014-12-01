@@ -23,11 +23,15 @@ public class CircleTouchListener implements View.OnTouchListener {
         int action = event.getAction();
         if(action == MotionEvent.ACTION_DOWN) {
             if (GameManager.getInstance().getStatus() == GameManager.STATUS_WAIT_ANSWER) {
-                GameManager.getInstance().answer(v.getId());
+                final boolean isCorrect = GameManager.getInstance().answer(v.getId());
                 Runnable r = new Runnable() {
                     @Override
                     public void run() {
-                        fSoundGenerator.play(v.getId());
+                        if(isCorrect) {
+                            fSoundGenerator.play(v.getId());
+                        } else {
+                            fSoundGenerator.playBoo();
+                        }
                     }
                 };
                 new Thread(r).start();

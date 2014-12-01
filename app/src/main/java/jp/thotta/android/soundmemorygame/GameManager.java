@@ -70,7 +70,8 @@ public class GameManager {
         }
     }
 
-    public void answer(int buttonId) {
+    public boolean answer(int buttonId) {
+        boolean isCorrect = false;
         if(fStatus == STATUS_WAIT_ANSWER) {
             int row = buttonId / fGameActivity.getRow();
             int column = buttonId % fGameActivity.getRow();
@@ -78,6 +79,7 @@ public class GameManager {
             Question currentQuestion = questionList.get(fCurrentQuestionPointer);
             if (currentQuestion.equals(answerForCurrentQuestion)) {
                 answeredCorrectly();
+                isCorrect = true;
             } else {
                 fCurrentQuestionPointer = 0;
                 lifeManager.deleteLife();
@@ -90,6 +92,7 @@ public class GameManager {
         } else {
             showToastText("Question hasn't finished! Please wait.");
         }
+        return isCorrect;
     }
 
     private void answeredCorrectly() {
@@ -143,6 +146,7 @@ public class GameManager {
 
     public void finishGame() {
         if(scoreManager.getScore() > scoreRecordDB.getHighScore()) {
+            SoundGenerator.getInstance().playChimeMelody();
             showToastText("Congratulations! You Got High Score!");
         }
         addGameScore(scoreManager.getScore());

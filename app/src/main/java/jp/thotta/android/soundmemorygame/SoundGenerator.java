@@ -76,7 +76,7 @@ public class SoundGenerator {
 
     void createData() {
         emptyData = createEmptySound();
-        booData = createSquareWave(200, SOUND_VOLUME * 3);
+        booData = createSquareWave(200, SOUND_VOLUME * 2);
         audioData[0] = createSquareWave(523.25);
         audioData[1] = createSquareWave(587.33);
         audioData[2] = createSquareWave(659.26);
