@@ -1,5 +1,7 @@
 package jp.thotta.android.soundmemorygame;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.Button;
@@ -107,7 +109,7 @@ public class GameManager {
             if(getGameMode() != ScoreRecordBean.GAME_MODE_SUPER_HARD &&
                     questionList.size() >= ScoreRecordBean.STAGE_QUESTION_SIZE) {
                 playChimeMelody();
-                showToastText("Congratulations! You Have Completed This Stage!");
+                showStageCompleteDialog();
                 finishGame(questionList.size());
             } else {
                 nextQuestion();
@@ -115,12 +117,24 @@ public class GameManager {
         }
     }
 
+    private void showStageCompleteDialog() {
+        new AlertDialog.Builder(fGameActivity)
+                .setTitle("Congratulations! You Have Completed This Stage!")
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                fGameActivity.finish();
+                            }
+                        }).show();
+    }
+
     private void playChimeMelody() {
         Runnable r = new Runnable() {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
