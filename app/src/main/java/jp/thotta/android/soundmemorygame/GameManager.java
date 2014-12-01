@@ -86,6 +86,7 @@ public class GameManager {
                 if(lifeManager.getLife() > 0) {
                     repeatQuestion();
                 } else {
+                    showToastText("Game Over!!");
                     finishGame();
                 }
             }
@@ -103,17 +104,19 @@ public class GameManager {
             scoreManager.updateView();
             fCurrentQuestionPointer = 0;
             showToastText("Correct answer!");
-            nextQuestion();
+            if(getGameMode() != ScoreRecordBean.GAME_MODE_SUPER_HARD &&
+                    questionList.size() >= ScoreRecordBean.STAGE_QUESTION_SIZE) {
+                SoundGenerator.getInstance().playChimeMelody();
+                showToastText("Congratulations! You Have Completed This Stage!");
+                finishGame(questionList.size());
+            } else {
+                nextQuestion();
+            }
         }
     }
 
     private void showToastText(String text) {
         Toast.makeText(fGameActivity, text, Toast.LENGTH_SHORT).show();
-    }
-
-    private void addGameScore(int score) {
-        scoreRecordDB.addGameScore(getGameMode(), score, questionList.size() - 1);
-        updateHighScoreView();
     }
 
     private int getGameMode() {
@@ -145,14 +148,21 @@ public class GameManager {
     }
 
     public void finishGame() {
+        finishGame(questionList.size() - 1);
+    }
+    public void finishGame(int correctAnswerNum) {
         if(scoreManager.getScore() > scoreRecordDB.getHighScore()) {
-            SoundGenerator.getInstance().playChimeMelody();
             showToastText("Congratulations! You Got High Score!");
         }
-        addGameScore(scoreManager.getScore());
+        insertGameScoreDbRecord(correctAnswerNum);
         initGame();
         setStatus(STATUS_BE_FINISHED);
-        showToastText("Game Over!!");
+
+    }
+
+    private void insertGameScoreDbRecord(int correctAnswerNum) {
+        scoreRecordDB.addGameScore(getGameMode(), scoreManager.getScore(), correctAnswerNum);
+        updateHighScoreView();
     }
 
     private void setStatus(int status) {
