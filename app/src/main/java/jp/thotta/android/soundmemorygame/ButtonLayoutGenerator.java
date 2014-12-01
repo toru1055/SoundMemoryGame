@@ -42,11 +42,7 @@ public class ButtonLayoutGenerator {
                 btn.setHeight((int) (widthPixels / column));
                 btn.setId(iRow * row + iCol);
                 btn.setBackgroundResource(R.drawable.circle_button);
-                if(row <= 4) {
-                    btn.setText(onkai[btn.getId()]);
-                } else {
-                    btn.setText(String.valueOf(btn.getId()));
-                }
+                btn.setText(onkai[btn.getId() % onkai.length]);
                 btn.setOnTouchListener(circleTouchListener);
                 tableRow.addView(btn);
             }
