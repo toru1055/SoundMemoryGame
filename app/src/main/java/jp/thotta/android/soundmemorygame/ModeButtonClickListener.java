@@ -21,7 +21,6 @@ public class ModeButtonClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        ((MainActivity)fActivity).googleApiClientConnect();
         Intent intent = new Intent(fActivity, GameActivity.class);
         intent.putExtra("column", fColumn);
         intent.putExtra("row", fRow);

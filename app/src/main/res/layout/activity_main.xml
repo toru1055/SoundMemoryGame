@@ -11,7 +11,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="High Score:"
         android:id="@+id/text_label_high_score"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/button_easy"
         android:layout_alignStart="@+id/button_easy" />
@@ -114,7 +114,14 @@
         android:layout_alignStart="@+id/button_easy"
         android:layout_weight="1"/>
 
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="World Ranking"
+        android:id="@+id/button_world_ranking"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

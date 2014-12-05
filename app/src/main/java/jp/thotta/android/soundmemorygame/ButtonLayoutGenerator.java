@@ -11,22 +11,22 @@ import android.widget.TableRow;
 public class ButtonLayoutGenerator {
     private static String[] onkai = new String[16];
     private static void setOnkai() {
-        onkai[0] = "ド";
-        onkai[1] = "レ";
-        onkai[2] = "ミ";
-        onkai[3] = "ファ";
-        onkai[4] = "ソ";
-        onkai[5] = "ラ";
-        onkai[6] = "シ";
-        onkai[7] = "ド";
-        onkai[8] = "レ";
-        onkai[9] = "ミ";
-        onkai[10] = "ファ";
-        onkai[11] = "ソ";
-        onkai[12] = "ラ";
-        onkai[13] = "シ";
-        onkai[14] = "ド";
-        onkai[15] = "レ";
+        onkai[0] = "Do";
+        onkai[1] = "Re";
+        onkai[2] = "Mi";
+        onkai[3] = "Fa";
+        onkai[4] = "Sol";
+        onkai[5] = "La";
+        onkai[6] = "Si";
+        onkai[7] = "Do'";
+        onkai[8] = "Re'";
+        onkai[9] = "Mi'";
+        onkai[10] = "Fa'";
+        onkai[11] = "Sol'";
+        onkai[12] = "La'";
+        onkai[13] = "Si'";
+        onkai[14] = "Do''";
+        onkai[15] = "Re''";
     }
     public static TableLayout generate(int row, int column, Activity activity) {
         setOnkai();

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.GamesActivityResultCodes;
@@ -21,45 +22,12 @@ public class MainActivity extends Activity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
     private GoogleApiClient mGoogleApiClient;
-    private static int RC_SIGN_IN = 9001;
+    private static final int RC_SIGN_IN = 9001;
+    public static final int REQUEST_LEADER_BOARD = 9002;
 
     private boolean mResolvingConnectionFailure = false;
     private boolean mAutoStartSignInFlow = true;
     private boolean mSignInClicked = false;
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (mGoogleApiClient.isConnected()) {
-            Log.d("SoundMemoryGame", "[onStart] GoogleApiClient is connected.");
-        } else {
-            Log.d("SoundMemoryGame", "[onStart] GoogleApiClient is NOT connected.");
-            if(!mResolvingConnectionFailure) {
-                Log.d("SoundMemoryGame", "[onStart] mResolvingConnectionFailure is FALSE.");
-                mGoogleApiClient.connect();
-            }
-        }
-    }
-
-    public void googleApiClientConnect() {
-        if(mGoogleApiClient.isConnected()) {
-            Log.d("SoundMemoryGame", "[googleApiClientConnect] GoogleApiClient is connected.");
-        } else {
-            Log.d("SoundMemoryGame", "[googleApiClientConnect] GoogleApiClient is NOT connected.");
-        }
-        //mGoogleApiClient.connect();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mGoogleApiClient.isConnected()) {
-            Log.d("SoundMemoryGame", "[onStop] GoogleApiClient is connected.");
-            mGoogleApiClient.disconnect();
-        } else {
-            Log.d("SoundMemoryGame", "[onStop] GoogleApiClient is NOT connected.");
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +52,41 @@ public class MainActivity extends Activity implements
                 .build();
     }
 
+    public GoogleApiClient getApiClient() {
+        return mGoogleApiClient;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mGoogleApiClient.isConnected()) {
+            Log.d("SoundMemoryGame", "[onStart] GoogleApiClient is connected.");
+        } else {
+            Log.d("SoundMemoryGame", "[onStart] GoogleApiClient is NOT connected.");
+            if(!mResolvingConnectionFailure) {
+                Log.d("SoundMemoryGame", "[onStart] mResolvingConnectionFailure is FALSE.");
+                mGoogleApiClient.connect();
+            }
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mGoogleApiClient.isConnected()) {
+            Log.d("SoundMemoryGame", "[onStop] GoogleApiClient is connected.");
+            mGoogleApiClient.disconnect();
+        } else {
+            Log.d("SoundMemoryGame", "[onStop] GoogleApiClient is NOT connected.");
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("SoundMemoryGame", "[onDestroy] onDestroy was called.");
+    }
+
     private void setModeButtonStatusAll(ScoreRecordDBHelper db) {
         Button btn_normal = (Button)findViewById(R.id.button_normal);
         Button btn_hard = (Button)findViewById(R.id.button_hard);
@@ -102,6 +105,13 @@ public class MainActivity extends Activity implements
         super.onResume();
         ScoreRecordDBHelper db = new ScoreRecordDBHelper(this);
         int highScore = db.getHighScore();
+        if(mGoogleApiClient.isConnected()) {
+            debugLog("[onResume] submit leader score.");
+            Games.Leaderboards.submitScore(mGoogleApiClient,
+                    getString(R.string.leader_board_id), highScore);
+        } else {
+            debugLog("[onResume] GoogleApi is NOT connected.");
+        }
         TextView textHighScore = (TextView) findViewById(R.id.text_high_score);
         textHighScore.setText(String.valueOf(highScore));
         showResults(db);
@@ -147,6 +157,14 @@ public class MainActivity extends Activity implements
     @Override
     public void onConnected(Bundle bundle) {
         Log.d("SoundMemoryGame", "GoogleApiClient.onConnected was called.");
+        ScoreRecordDBHelper db = new ScoreRecordDBHelper(this);
+        int highScore = db.getHighScore();
+        debugLog("[onConnected] submit leader score.");
+        Games.Leaderboards.submitScore(mGoogleApiClient,
+                getString(R.string.leader_board_id), highScore);
+
+        Button worldRankingButton = (Button) findViewById(R.id.button_world_ranking);
+        worldRankingButton.setOnClickListener(new RankingButtonClickListener(this));
     }
 
     @Override
@@ -196,5 +214,9 @@ public class MainActivity extends Activity implements
         String connectionResultString = connectionResult.toString();
         Log.d("SoundMemoryGame", "GoogleApiClient.onConnectionFailed was called. ErrorCode=" +
                 String.valueOf(errorCode) + ", ConnectionResult=" + connectionResultString);
+    }
+
+    private void debugLog(String l) {
+        Log.d("SoundMemoryGame", l);
     }
 }
