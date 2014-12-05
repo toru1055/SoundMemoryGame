@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -22,6 +23,7 @@ public class MainActivity extends Activity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
     private GoogleApiClient mGoogleApiClient;
+    private AdView adView;
     private static final int RC_SIGN_IN = 9001;
     public static final int REQUEST_LEADER_BOARD = 9002;
 
@@ -50,6 +52,11 @@ public class MainActivity extends Activity implements
                 .addApi(Plus.API).addScope(Plus.SCOPE_PLUS_LOGIN)
                 .addApi(Games.API).addScope(Games.SCOPE_GAMES)
                 .build();
+    }
+
+    private void makeAdView() {
+        adView = new AdView(this);
+
     }
 
     public GoogleApiClient getApiClient() {
