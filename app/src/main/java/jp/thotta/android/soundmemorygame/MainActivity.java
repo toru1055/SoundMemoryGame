@@ -8,8 +8,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.google.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -52,11 +55,19 @@ public class MainActivity extends Activity implements
                 .addApi(Plus.API).addScope(Plus.SCOPE_PLUS_LOGIN)
                 .addApi(Games.API).addScope(Games.SCOPE_GAMES)
                 .build();
+        makeAdView();
     }
 
     private void makeAdView() {
         adView = new AdView(this);
-
+        adView.setAdUnitId(getString(R.string.ad_unit_id));
+        adView.setAdSize(AdSize.BANNER);
+        FrameLayout layout = (FrameLayout) findViewById(R.id.layout_ad_frame);
+        layout.addView(adView);
+        com.google.android.gms.ads.AdRequest adRequest = new com.google.android.gms.ads.AdRequest.Builder()
+                .addTestDevice(getString(R.string.test_device_id))
+                .build();
+        adView.loadAd(adRequest);
     }
 
     public GoogleApiClient getApiClient() {
