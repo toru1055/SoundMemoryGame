@@ -1,17 +1,69 @@
 package jp.thotta.android.soundmemorygame;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.IntentSender;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.games.Games;
+import com.google.android.gms.games.GamesActivityResultCodes;
+import com.google.android.gms.plus.Plus;
 
-public class MainActivity extends Activity {
+
+public class MainActivity extends Activity implements
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener {
+    private GoogleApiClient mGoogleApiClient;
+    private static int RC_SIGN_IN = 9001;
+
+    private boolean mResolvingConnectionFailure = false;
+    private boolean mAutoStartSignInFlow = true;
+    private boolean mSignInClicked = false;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mGoogleApiClient.isConnected()) {
+            Log.d("SoundMemoryGame", "[onStart] GoogleApiClient is connected.");
+        } else {
+            Log.d("SoundMemoryGame", "[onStart] GoogleApiClient is NOT connected.");
+            if(!mResolvingConnectionFailure) {
+                Log.d("SoundMemoryGame", "[onStart] mResolvingConnectionFailure is FALSE.");
+                mGoogleApiClient.connect();
+            }
+        }
+    }
+
+    public void googleApiClientConnect() {
+        if(mGoogleApiClient.isConnected()) {
+            Log.d("SoundMemoryGame", "[googleApiClientConnect] GoogleApiClient is connected.");
+        } else {
+            Log.d("SoundMemoryGame", "[googleApiClientConnect] GoogleApiClient is NOT connected.");
+        }
+        //mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mGoogleApiClient.isConnected()) {
+            Log.d("SoundMemoryGame", "[onStop] GoogleApiClient is connected.");
+            mGoogleApiClient.disconnect();
+        } else {
+            Log.d("SoundMemoryGame", "[onStop] GoogleApiClient is NOT connected.");
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("onCreate", "onCreate is called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -23,6 +75,13 @@ public class MainActivity extends Activity {
         btn_normal.setOnClickListener(new ModeButtonClickListener(3, 3, this));
         btn_hard.setOnClickListener(new ModeButtonClickListener(4, 4, this));
         btn_super_hard.setOnClickListener(new ModeButtonClickListener(5, 5, this));
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(Plus.API).addScope(Plus.SCOPE_PLUS_LOGIN)
+                .addApi(Games.API).addScope(Games.SCOPE_GAMES)
+                .build();
     }
 
     private void setModeButtonStatusAll(ScoreRecordDBHelper db) {
@@ -83,5 +142,59 @@ public class MainActivity extends Activity {
         TextView resultView = (TextView) findViewById(viewId);
         ScoreRecordBean result = db.getHighScoreObject(mode);
         resultView.setText(result.toString());
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        Log.d("SoundMemoryGame", "GoogleApiClient.onConnected was called.");
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.d("SoundMemoryGame", "GoogleApiClient.onConnectionSuspended was called.");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("SoundMemoryGame", "[onActivityResult] requestCode=" +
+                requestCode + ", resultCode=" + resultCode);
+        if(requestCode == RC_SIGN_IN) {
+            mResolvingConnectionFailure = false;
+            if(resultCode == RESULT_OK) {
+                Log.d("SoundMemoryGame", "[onActivityResult] result OK.");
+                if(!mGoogleApiClient.isConnecting() &&
+                        !mGoogleApiClient.isConnected()) {
+                    mGoogleApiClient.connect();
+                }
+            } else {
+                Log.d("SoundMemoryGame", "[onActivityResult] resultCode is NOT OK.");
+            }
+        }
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        if (mResolvingConnectionFailure) {
+            // already resolving
+            return;
+        }
+
+        int errorCode = connectionResult.getErrorCode();
+        if(connectionResult.hasResolution()) {
+            if (errorCode == ConnectionResult.SIGN_IN_REQUIRED) {
+                try {
+                    connectionResult.startResolutionForResult(this, RC_SIGN_IN);
+                } catch (IntentSender.SendIntentException e) {
+                    mGoogleApiClient.connect();
+                }
+            }
+        } else {
+            mResolvingConnectionFailure = true;
+            Log.d("SoundMemoryGame", "connectionResult.hasResolution() is false.");
+        }
+        String connectionResultString = connectionResult.toString();
+        Log.d("SoundMemoryGame", "GoogleApiClient.onConnectionFailed was called. ErrorCode=" +
+                String.valueOf(errorCode) + ", ConnectionResult=" + connectionResultString);
     }
 }
