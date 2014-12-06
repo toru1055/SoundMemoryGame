@@ -211,6 +211,7 @@ public class MainActivity extends Activity implements
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
+        debugLog("[onConnectionFailed] onConnectionFailed method was called.");
         if (mResolvingConnectionFailure) {
             // already resolving
             return;
@@ -218,12 +219,17 @@ public class MainActivity extends Activity implements
 
         int errorCode = connectionResult.getErrorCode();
         if(connectionResult.hasResolution()) {
+            debugLog("[onConnectionFailed] connectionResult.hasResolution()");
             if (errorCode == ConnectionResult.SIGN_IN_REQUIRED) {
                 try {
+                    debugLog("[onConnectionFailed] connectionResult.startResolutionForResult(this, RC_SIGN_IN)");
                     connectionResult.startResolutionForResult(this, RC_SIGN_IN);
                 } catch (IntentSender.SendIntentException e) {
+                    debugLog("[onConnectionFailed] Catch startResolutionForResult error: " + e.getMessage() );
                     mGoogleApiClient.connect();
                 }
+            } else {
+                debugLog("[onConnectionFailed] errorCode is NOT SIGN_IN_REQUIRED");
             }
         } else {
             mResolvingConnectionFailure = true;
