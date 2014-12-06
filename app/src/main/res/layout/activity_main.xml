@@ -95,7 +95,7 @@
     <Button
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="Easy(2x2)"
+        android:text="Easy(2x2, 12questions)"
         android:id="@+id/button_easy"
         android:layout_above="@+id/button_normal"
         android:layout_centerHorizontal="true"
@@ -104,7 +104,7 @@
     <Button
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="Normal(3x3)"
+        android:text="Normal(3x3, 12questions)"
         android:id="@+id/button_normal"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/button_hard"
@@ -113,7 +113,7 @@
     <Button
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="Hard(4x4)"
+        android:text="Hard(4x4, 12questions)"
         android:id="@+id/button_hard"
         android:layout_above="@+id/button_super_hard"
         android:layout_centerHorizontal="true"
@@ -121,7 +121,7 @@
     <Button
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="Super Hard(5x5)"
+        android:text="Super Hard(5x5, unlimited)"
         android:id="@+id/button_super_hard"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
