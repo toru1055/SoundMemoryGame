@@ -31,14 +31,20 @@ public class RankingButtonClickListener implements View.OnClickListener {
                         mainActivity.REQUEST_LEADER_BOARD
                 );
             } catch(SecurityException e) {
+                showConnectingMessage();
                 mainActivity.debugLog("[RankingButtonClickListener.onClick] " +
                         "Catch SecurityException: " + e.getMessage());
                 mainActivity.disconnectGoogleApi();
                 mainActivity.connectGoogleApi();
             }
         } else {
+            showConnectingMessage();
             mainActivity.debugLog("[RankingButtonClickListener.onClick] googleApiClient is NOT connected.");
             mainActivity.connectGoogleApi();
         }
+    }
+
+    private void showConnectingMessage() {
+        Toast.makeText(mainActivity, "Connecting to Google Play Game.", Toast.LENGTH_SHORT).show();
     }
 }
