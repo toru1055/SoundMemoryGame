@@ -88,6 +88,7 @@ public class GameManager {
                 if(lifeManager.getLife() > 0) {
                     repeatQuestion();
                 } else {
+                    playGameOverMelody();
                     showToastText("Game Over!!");
                     finishGame();
                 }
@@ -139,6 +140,21 @@ public class GameManager {
                     e.printStackTrace();
                 }
                 SoundGenerator.getInstance().playChimeMelody();
+            }
+        };
+        new Thread(r).start();
+    }
+
+    private void playGameOverMelody() {
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                SoundGenerator.getInstance().playGameOverMelody();
             }
         };
         new Thread(r).start();

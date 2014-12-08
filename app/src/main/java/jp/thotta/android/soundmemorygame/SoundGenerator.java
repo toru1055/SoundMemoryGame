@@ -12,6 +12,7 @@ public class SoundGenerator {
     byte[][] audioData = new byte[16][];
     byte[] emptyData;
     byte[] booData;
+    byte[] doSharpData;
     AudioTrack track;
     private boolean isInitialized = false;
     final static int SAMPLE_RATE = 44100;
@@ -63,6 +64,21 @@ public class SoundGenerator {
         track.write(booData, 0, BUFFER_SIZE*2);
     }
 
+    synchronized public void playGameOverMelody() {
+        track.play();
+        track.write(audioData[5], 0, BUFFER_SIZE); //La
+        track.write(audioData[4], 0, BUFFER_SIZE); //Sol
+        track.write(audioData[5], 0, BUFFER_SIZE*2); //La
+        track.write(emptyData, 0, BUFFER_SIZE*2);
+        track.write(audioData[4], 0, BUFFER_SIZE); //Sol
+        track.write(audioData[3], 0, BUFFER_SIZE); //Fa
+        track.write(audioData[2], 0, BUFFER_SIZE); //Mi
+        track.write(audioData[1], 0, BUFFER_SIZE); //Re
+        track.write(doSharpData, 0, BUFFER_SIZE*2); //Do#
+        track.write(audioData[1], 0, BUFFER_SIZE*2); //Re
+        track.write(emptyData, 0, BUFFER_SIZE*2);
+    }
+
     void createAudioTrack() {
         track = new AudioTrack(
                 AudioManager.STREAM_MUSIC,
@@ -77,6 +93,7 @@ public class SoundGenerator {
     void createData() {
         emptyData = createEmptySound();
         booData = createSquareWave(200, SOUND_VOLUME * 2);
+        doSharpData = createSquareWave(554.37);
         audioData[0] = createSquareWave(523.25);
         audioData[1] = createSquareWave(587.33);
         audioData[2] = createSquareWave(659.26);
