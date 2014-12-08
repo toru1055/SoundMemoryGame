@@ -3,6 +3,7 @@ package jp.thotta.android.soundmemorygame;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,8 +44,9 @@ public class GameActivity extends Activity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStop() {
+        super.onStop();
+        Log.d("SoundMemoryGame", "[GameActivity] onStop was called.");
         if(GameManager.getInstance().getStatus() != GameManager.STATUS_INITIALIZED &&
            GameManager.getInstance().getStatus() != GameManager.STATUS_BE_FINISHED) {
             GameManager.getInstance().finishGame();
