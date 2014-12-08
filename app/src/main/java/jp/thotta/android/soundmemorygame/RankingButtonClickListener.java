@@ -1,6 +1,7 @@
 package jp.thotta.android.soundmemorygame;
 
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
@@ -17,17 +18,27 @@ public class RankingButtonClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        // Display google game's leader board.
         GoogleApiClient googleApiClient = mainActivity.getApiClient();
         if(googleApiClient.isConnected()) {
-            mainActivity.startActivityForResult(
-                    Games.Leaderboards.getLeaderboardIntent(
-                            googleApiClient,
-                            mainActivity.getString(R.string.leader_board_id)
-                    ),
-                    mainActivity.REQUEST_LEADER_BOARD
-            );
+            mainActivity.debugLog("[RankingButtonClickListener.onClick] googleApiClient is connected.");
+            try {
+                mainActivity.startActivityForResult(
+                        Games.Leaderboards.getLeaderboardIntent(
+                                googleApiClient,
+                                mainActivity.getString(R.string.leader_board_id)
+                        ),
+                        mainActivity.REQUEST_LEADER_BOARD
+                );
+            } catch(SecurityException e) {
+                mainActivity.debugLog("[RankingButtonClickListener.onClick] " +
+                        "Catch SecurityException: " + e.getMessage());
+                mainActivity.disconnectGoogleApi();
+                mainActivity.connectGoogleApi();
+            }
         } else {
-            //TODO: Display error dialog.
+            mainActivity.debugLog("[RankingButtonClickListener.onClick] googleApiClient is NOT connected.");
+            mainActivity.connectGoogleApi();
         }
     }
 }

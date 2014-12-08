@@ -29,10 +29,7 @@ public class MainActivity extends Activity implements
     private AdView adView;
     private static final int RC_SIGN_IN = 9001;
     public static final int REQUEST_LEADER_BOARD = 9002;
-
     private boolean mResolvingConnectionFailure = false;
-    private boolean mAutoStartSignInFlow = true;
-    private boolean mSignInClicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +53,9 @@ public class MainActivity extends Activity implements
                 .addApi(Games.API).addScope(Games.SCOPE_GAMES)
                 .build();
         makeAdView();
+
+        Button worldRankingButton = (Button) findViewById(R.id.button_world_ranking);
+        worldRankingButton.setOnClickListener(new RankingButtonClickListener(this));
     }
 
     private void makeAdView() {
@@ -74,23 +74,14 @@ public class MainActivity extends Activity implements
         return mGoogleApiClient;
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (mGoogleApiClient.isConnected()) {
-            Log.d("SoundMemoryGame", "[onStart] GoogleApiClient is connected.");
-        } else {
-            Log.d("SoundMemoryGame", "[onStart] GoogleApiClient is NOT connected.");
-            if(!mResolvingConnectionFailure) {
-                Log.d("SoundMemoryGame", "[onStart] mResolvingConnectionFailure is FALSE.");
-                mGoogleApiClient.connect();
-            }
+    public void connectGoogleApi() {
+        if(!mResolvingConnectionFailure) {
+            debugLog("[connectGoogleApi] mResolvingConnectionFailure is FALSE.");
+            mGoogleApiClient.connect();
         }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
+    public void disconnectGoogleApi() {
         if (mGoogleApiClient.isConnected()) {
             Log.d("SoundMemoryGame", "[onStop] GoogleApiClient is connected.");
             mGoogleApiClient.disconnect();
@@ -103,6 +94,7 @@ public class MainActivity extends Activity implements
     protected void onDestroy() {
         super.onDestroy();
         Log.d("SoundMemoryGame", "[onDestroy] onDestroy was called.");
+        disconnectGoogleApi();
     }
 
     private void setModeButtonStatusAll(ScoreRecordDBHelper db) {
@@ -125,8 +117,12 @@ public class MainActivity extends Activity implements
         int highScore = db.getHighScore();
         if(mGoogleApiClient.isConnected()) {
             debugLog("[onResume] submit leader score.");
-            Games.Leaderboards.submitScore(mGoogleApiClient,
-                    getString(R.string.leader_board_id), highScore);
+            try {
+                Games.Leaderboards.submitScore(mGoogleApiClient,
+                        getString(R.string.leader_board_id), highScore);
+            } catch(SecurityException e) {
+                debugLog("[onResume] Catch SecurityException: " + e.getMessage());
+            }
         } else {
             debugLog("[onResume] GoogleApi is NOT connected.");
         }
@@ -135,7 +131,6 @@ public class MainActivity extends Activity implements
         showResults(db);
         setModeButtonStatusAll(db);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -180,9 +175,13 @@ public class MainActivity extends Activity implements
         debugLog("[onConnected] submit leader score.");
         Games.Leaderboards.submitScore(mGoogleApiClient,
                 getString(R.string.leader_board_id), highScore);
-
-        Button worldRankingButton = (Button) findViewById(R.id.button_world_ranking);
-        worldRankingButton.setOnClickListener(new RankingButtonClickListener(this));
+        startActivityForResult(
+                Games.Leaderboards.getLeaderboardIntent(
+                        mGoogleApiClient,
+                        getString(R.string.leader_board_id)
+                ),
+                REQUEST_LEADER_BOARD
+        );
     }
 
     @Override
@@ -240,7 +239,7 @@ public class MainActivity extends Activity implements
                 String.valueOf(errorCode) + ", ConnectionResult=" + connectionResultString);
     }
 
-    private void debugLog(String l) {
+    public void debugLog(String l) {
         Log.d("SoundMemoryGame", l);
     }
 }
