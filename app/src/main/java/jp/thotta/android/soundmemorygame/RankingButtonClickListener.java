@@ -10,41 +10,41 @@ import com.google.android.gms.games.Games;
  * Created by thotta on 14/12/05.
  */
 public class RankingButtonClickListener implements View.OnClickListener {
-    private MainActivity mainActivity;
+    private SelectModeActivity selectModeActivity;
 
-    public RankingButtonClickListener(MainActivity activity) {
-        this.mainActivity = activity;
+    public RankingButtonClickListener(SelectModeActivity activity) {
+        this.selectModeActivity = activity;
     }
 
     @Override
     public void onClick(View v) {
         // Display google game's leader board.
-        GoogleApiClient googleApiClient = mainActivity.getApiClient();
+        GoogleApiClient googleApiClient = selectModeActivity.getApiClient();
         if(googleApiClient.isConnected()) {
-            mainActivity.debugLog("[RankingButtonClickListener.onClick] googleApiClient is connected.");
+            selectModeActivity.debugLog("[RankingButtonClickListener.onClick] googleApiClient is connected.");
             try {
-                mainActivity.startActivityForResult(
+                selectModeActivity.startActivityForResult(
                         Games.Leaderboards.getLeaderboardIntent(
                                 googleApiClient,
-                                mainActivity.getString(R.string.leader_board_id)
+                                selectModeActivity.getString(R.string.leader_board_id)
                         ),
-                        mainActivity.REQUEST_LEADER_BOARD
+                        selectModeActivity.REQUEST_LEADER_BOARD
                 );
             } catch(SecurityException e) {
                 showConnectingMessage();
-                mainActivity.debugLog("[RankingButtonClickListener.onClick] " +
+                selectModeActivity.debugLog("[RankingButtonClickListener.onClick] " +
                         "Catch SecurityException: " + e.getMessage());
-                mainActivity.disconnectGoogleApi();
-                mainActivity.connectGoogleApi();
+                selectModeActivity.disconnectGoogleApi();
+                selectModeActivity.connectGoogleApi();
             }
         } else {
             showConnectingMessage();
-            mainActivity.debugLog("[RankingButtonClickListener.onClick] googleApiClient is NOT connected.");
-            mainActivity.connectGoogleApi();
+            selectModeActivity.debugLog("[RankingButtonClickListener.onClick] googleApiClient is NOT connected.");
+            selectModeActivity.connectGoogleApi();
         }
     }
 
     private void showConnectingMessage() {
-        Toast.makeText(mainActivity, "Connecting to Google Play Game.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(selectModeActivity, "Connecting to Google Play Game.", Toast.LENGTH_SHORT).show();
     }
 }
