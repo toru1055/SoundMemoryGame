@@ -32,7 +32,17 @@ public class TopActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
-                Intent intent = new Intent(context, SelectModeActivity.class);
+                Intent intent = new Intent(context, HighScoreActivity.class);
+                context.startActivity(intent);
+            }
+        });
+
+        Button buttonWorldRanking = (Button) findViewById(R.id.button_ranking);
+        buttonWorldRanking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, WorldRankingActivity.class);
                 context.startActivity(intent);
             }
         });

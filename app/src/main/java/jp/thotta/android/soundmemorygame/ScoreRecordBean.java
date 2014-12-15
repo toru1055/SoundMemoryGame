@@ -7,7 +7,10 @@ import java.io.PrintStream;
  * Created by thotta on 14/11/30.
  */
 public class ScoreRecordBean {
-    public static final int STAGE_QUESTION_SIZE = 12;
+    //TODO: You have to change this value, when you release this game.
+    public static final int STAGE_QUESTION_SIZE = 2;
+    //public static final int STAGE_QUESTION_SIZE = 12;
+
     public static final int GAME_MODE_EASY = 2;
     public static final int GAME_MODE_NORMAL = 3;
     public static final int GAME_MODE_HARD = 4;
@@ -16,6 +19,13 @@ public class ScoreRecordBean {
     private int mode;
     private int score;
     private int questionSize;
+
+    public int getScore() {
+        return score;
+    }
+    public int getQuestion() {
+        return questionSize;
+    }
 
     public static String modeName(int mode) {
         switch (mode) {

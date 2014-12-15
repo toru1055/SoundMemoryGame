@@ -6,5 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_game">PiPaPon!</string>
     <string name="title_activity_top">Top</string>
+    <string name="title_activity_high_score">High Score</string>
+    <string name="title_activity_world_ranking">World Ranking</string>
 
 </resources>

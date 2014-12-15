@@ -13,7 +13,7 @@
         <activity
             android:name="jp.thotta.android.soundmemorygame.TopActivity"
             android:label="@string/title_activity_top"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SelectModeActivity"
+            android:name="jp.thotta.android.soundmemorygame.SelectModeActivity"
             android:exported="false"
             android:label="@string/title_activity_game"
             android:launchMode="singleTop"
@@ -44,6 +44,15 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name="jp.thotta.android.soundmemorygame.HighScoreActivity"
+            android:label="@string/title_activity_high_score" >
+        </activity>
+        <activity
+            android:name="jp.thotta.android.soundmemorygame.WorldRankingActivity"
+            android:label="@string/title_activity_world_ranking" >
+        </activity>
     </application>
 
 </manifest>
