@@ -7,101 +7,139 @@
     tools:context="jp.thotta.android.soundmemorygame.GameActivity">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-        <RelativeLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
+        android:layout_alignParentStart="true"
+        android:id="@+id/layout_info"
+        android:baselineAligned="false">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/layout_app_info">
+            android:layout_weight="0.25"
+            android:background="#cccccc"
+            android:paddingLeft="2dp"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="High Score: "
-                android:id="@+id/text_label_high_score" />
+                android:text="BEST"
+                android:background="#ffffff"
+                android:padding="2dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/text_label_high_score"
+                android:gravity="center" />
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/text_label_high_score"
                 android:text="0"
-                android:id="@+id/text_high_score" />
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="30dp"
-            android:id="@+id/layout_game_info">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Score: "
+                android:padding="2dp"
+                android:background="#ffffff"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/text_label_score"/>
+                android:id="@+id/text_high_score"
+                android:gravity="center" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:background="#cccccc"
+            android:paddingLeft="2dp"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Score"
+                android:padding="2dp"
+                android:background="#ffffff"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/text_label_score"
+                android:gravity="center" />
             <TextView
                 android:text="0"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:background="#ffffff"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_toRightOf="@+id/text_label_score"
-                android:id="@+id/text_score" />
-
+                android:id="@+id/text_score"
+                android:gravity="center" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:background="#cccccc"
+            android:paddingLeft="2dp"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:background="#ffffff"
                 android:layout_toLeftOf="@+id/text_question"
-                android:text=", Question: "
+                android:text="Questions"
+                android:padding="2dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/text_label_question"/>
+                android:id="@+id/text_label_question"
+                android:gravity="center" />
             <TextView
                 android:text="0"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
+                android:background="#ffffff"
+                android:padding="2dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_toLeftOf="@+id/text_label_life"
-                android:id="@+id/text_question" />
-
+                android:id="@+id/text_question"
+                android:gravity="center" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:background="#cccccc"
+            android:padding="2dp">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text=", Life: "
+                android:background="#ffffff"
+                android:text="Life"
+                android:padding="2dp"
                 android:layout_toLeftOf="@+id/text_life"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/text_label_life"/>
+                android:id="@+id/text_label_life"
+                android:gravity="center" />
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:padding="2dp"
                 android:layout_alignParentRight="true"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="★★★"
-                android:id="@+id/text_life"/>
-
-        </RelativeLayout>
-
-        <TableLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/button_table"
-            android:layout_marginTop="30dp"
-            android:layout_centerHorizontal="true">
-        </TableLayout>
-
-
-
+                android:id="@+id/text_life"
+                android:gravity="center" />
+        </LinearLayout>
     </LinearLayout>
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/button_table"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/layout_info"
+        android:layout_centerHorizontal="true">
+    </TableLayout>
 
     <Button
         android:layout_width="fill_parent"
@@ -112,5 +150,5 @@
         android:textSize="35dp"
         android:textStyle="bold"
         android:layout_alignParentBottom="true"
-        android:textColor="#ffff00ff" />
+        android:textColor="#555555" />
 </RelativeLayout>

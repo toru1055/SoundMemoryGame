@@ -86,8 +86,8 @@ public class SelectModeActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if(id == R.id.action_cancel) {
-            moveTaskToBack(true);
+        if(id == R.id.action_back) {
+            finish();
             return true;
         }
 
