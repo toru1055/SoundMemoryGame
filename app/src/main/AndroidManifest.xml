@@ -47,11 +47,13 @@
 
         <activity
             android:name="jp.thotta.android.soundmemorygame.HighScoreActivity"
-            android:label="@string/title_activity_high_score" >
+            android:label="@string/title_activity_high_score"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="jp.thotta.android.soundmemorygame.WorldRankingActivity"
-            android:label="@string/title_activity_world_ranking" >
+            android:label="@string/title_activity_world_ranking"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

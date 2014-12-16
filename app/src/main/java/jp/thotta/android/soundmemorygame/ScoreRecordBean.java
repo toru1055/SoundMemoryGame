@@ -8,7 +8,7 @@ import java.io.PrintStream;
  */
 public class ScoreRecordBean {
     //TODO: You have to change this value, when you release this game.
-    public static final int STAGE_QUESTION_SIZE = 2;
+    public static final int STAGE_QUESTION_SIZE = 3;
     //public static final int STAGE_QUESTION_SIZE = 12;
 
     public static final int GAME_MODE_EASY = 2;

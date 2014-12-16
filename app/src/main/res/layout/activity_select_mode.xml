@@ -14,115 +14,61 @@
     </FrameLayout>
 
 
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_ad_frame"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/layout_high_score">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="High Score:"
-            android:id="@+id/text_label_high_score"
-            android:layout_alignParentLeft="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="0"
-            android:id="@+id/text_high_score"
-            android:layout_alignParentRight="true"/>
-    </LinearLayout>
-
-
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="World Ranking"
-        android:id="@+id/button_world_ranking"
-        android:layout_below="@+id/layout_high_score"
-        android:layout_centerHorizontal="true"/>
-
-
-
-    <TextView
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="---"
-        android:gravity="left"
-        android:id="@+id/text_results_easy"
-        android:layout_marginTop="0dp"
-        android:layout_below="@+id/button_world_ranking"
-        android:layout_centerHorizontal="true" />
-    <TextView
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="---"
-        android:gravity="left"
-        android:id="@+id/text_results_normal"
-        android:layout_marginTop="0dp"
-        android:layout_below="@+id/text_results_easy"
-        android:layout_centerHorizontal="true" />
-    <TextView
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="---"
-        android:gravity="left"
-        android:id="@+id/text_results_hard"
-        android:layout_marginTop="0dp"
-        android:layout_below="@+id/text_results_normal"
-        android:layout_centerHorizontal="true" />
-    <TextView
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="---"
-        android:gravity="left"
-        android:id="@+id/text_results_super_hard"
-        android:layout_marginTop="0dp"
-        android:layout_below="@+id/text_results_hard"
-        android:layout_centerHorizontal="true" />
-
-
-
-
-
-
-    <Button
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Easy(2x2, 12questions)"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Easy(12questions)"
+        android:background="@drawable/blue_button"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:textColor="@color/common_signin_btn_dark_text_default"
         android:id="@+id/button_easy"
         android:layout_above="@+id/button_normal"
+        android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true"
         android:layout_weight="1"/>
 
     <Button
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Normal(3x3, 12questions)"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Normal(12questions)"
+        android:background="@drawable/blue_button"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:textColor="@color/common_signin_btn_dark_text_default"
         android:id="@+id/button_normal"
+        android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/button_hard"
         android:layout_weight="1"/>
 
     <Button
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Hard(4x4, 12questions)"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Hard(12questions)"
+        android:background="@drawable/blue_button"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:textColor="@color/common_signin_btn_dark_text_default"
         android:id="@+id/button_hard"
+        android:layout_marginBottom="20dp"
         android:layout_above="@+id/button_super_hard"
         android:layout_centerHorizontal="true"
         android:layout_weight="1"/>
     <Button
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Super Hard(5x5, unlimited)"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Super Hard(unlimited)"
+        android:background="@drawable/blue_button"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:textColor="@color/common_signin_btn_dark_text_default"
         android:id="@+id/button_super_hard"
+        android:layout_marginBottom="20dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_weight="1"/>

@@ -1,7 +1,12 @@
 package jp.thotta.android.soundmemorygame;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.util.Log;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -37,13 +42,17 @@ public class ButtonLayoutGenerator {
             for(int iCol = 0; iCol < column; iCol++) {
                 Button btn = new Button(activity);
                 float scale = activity.getResources().getDisplayMetrics().density;
-                int widthPixels = (int)(activity.getResources().getDisplayMetrics().widthPixels * 0.9);
-                btn.setWidth((int)(widthPixels / column));
-                btn.setHeight((int) (widthPixels / column));
+                int widthPixels = (int)(activity.getResources().getDisplayMetrics().widthPixels - 32 * scale);
+                int circlePixels = widthPixels / column;
+                btn.setWidth(circlePixels);
+                btn.setHeight(circlePixels);
                 btn.setId(iRow * row + iCol);
                 btn.setBackgroundResource(R.drawable.circle_button);
                 btn.setText(onkai[btn.getId() % onkai.length]);
                 btn.setOnTouchListener(circleTouchListener);
+                btn.setTextColor(Color.parseColor("#ffffff"));
+                btn.setTextSize(circlePixels / 4);
+                btn.setTypeface(null, Typeface.BOLD);
                 tableRow.addView(btn);
             }
             tableLayout.addView(tableRow);

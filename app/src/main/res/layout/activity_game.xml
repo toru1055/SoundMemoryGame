@@ -108,5 +108,9 @@
         android:layout_height="wrap_content"
         android:text="Start"
         android:id="@+id/button_start_stop"
-        android:layout_alignParentBottom="true"/>
+        android:background="@drawable/blue_button"
+        android:textSize="35dp"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:textColor="#ffff00ff" />
 </RelativeLayout>
