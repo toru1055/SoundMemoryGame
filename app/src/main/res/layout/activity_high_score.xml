@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:text="0"
         android:id="@+id/text_value_highscore"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:textSize="48dp"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
@@ -34,7 +34,8 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/text_value_highscore"
         android:background="#449def"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="30dp"
+        android:id="@+id/tableLayout">
         <TableRow
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -225,4 +226,18 @@
                 android:gravity="right" />
         </TableRow>
     </TableLayout>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Return to Top"
+        android:id="@+id/button_return_to_top"
+        android:background="@drawable/blue_button"
+        android:textSize="30dp"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:textColor="@color/common_signin_btn_dark_text_default"
+        android:layout_below="@+id/tableLayout"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

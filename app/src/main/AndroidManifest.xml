@@ -23,14 +23,14 @@
         <activity
             android:name="jp.thotta.android.soundmemorygame.SelectModeActivity"
             android:exported="false"
-            android:label="@string/title_activity_game"
+            android:label="Select Mode"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="jp.thotta.android.soundmemorygame.GameActivity"
             android:exported="false"
-            android:label="@string/title_activity_game"
+            android:label="Play Game"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>

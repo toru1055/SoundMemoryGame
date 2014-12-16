@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import jp.thotta.android.soundmemorygame.R;
@@ -20,6 +22,13 @@ public class HighScoreActivity extends Activity {
         TextView textHighScore = (TextView) findViewById(R.id.text_value_highscore);
         textHighScore.setText(String.valueOf(highScore));
         setResults(db);
+        Button buttonReturn = (Button)findViewById(R.id.button_return_to_top);
+        buttonReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((Activity)v.getContext()).finish();
+            }
+        });
     }
 
     private void setResults(ScoreRecordDBHelper db) {
