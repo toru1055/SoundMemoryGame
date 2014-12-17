@@ -1,5 +1,6 @@
 package jp.thotta.android.soundmemorygame;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,6 +42,8 @@ public class GameActivity extends Activity {
                 }
             }
         });
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -80,6 +83,10 @@ public class GameActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_back) {
+            finish();
+            return true;
+        }
+        if(id == android.R.id.home) {
             finish();
             return true;
         }

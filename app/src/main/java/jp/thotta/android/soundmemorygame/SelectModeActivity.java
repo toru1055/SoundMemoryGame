@@ -1,5 +1,6 @@
 package jp.thotta.android.soundmemorygame;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +31,8 @@ public class SelectModeActivity extends Activity {
         btn_super_hard.setOnClickListener(new ModeButtonClickListener(5, 5, this));
 
         makeAdView();
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     private void makeAdView() {
@@ -79,6 +82,10 @@ public class SelectModeActivity extends Activity {
         int id = item.getItemId();
 
         if(id == R.id.action_back) {
+            finish();
+            return true;
+        }
+        if(id == android.R.id.home) {
             finish();
             return true;
         }

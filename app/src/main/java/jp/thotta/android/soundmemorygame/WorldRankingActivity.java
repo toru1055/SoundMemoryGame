@@ -1,5 +1,6 @@
 package jp.thotta.android.soundmemorygame;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -82,6 +83,8 @@ public class WorldRankingActivity extends Activity implements
             }
         });
         makeAdView();
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
 
@@ -100,6 +103,10 @@ public class WorldRankingActivity extends Activity implements
         int id = item.getItemId();
 
         if(id == R.id.action_back) {
+            finish();
+            return true;
+        }
+        if(id == android.R.id.home) {
             finish();
             return true;
         }

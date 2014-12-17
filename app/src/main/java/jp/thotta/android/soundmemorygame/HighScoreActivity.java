@@ -1,5 +1,6 @@
 package jp.thotta.android.soundmemorygame;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,6 +48,8 @@ public class HighScoreActivity extends Activity {
             }
         });
         makeAdView();
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     private void setResults(ScoreRecordDBHelper db) {
@@ -81,6 +84,10 @@ public class HighScoreActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        if(id == android.R.id.home) {
+            finish();
+            return true;
+        }
         if(id == R.id.action_back) {
             finish();
             return true;

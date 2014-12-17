@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:text="pt"
         android:id="@+id/text_label_highscore"
-        android:layout_toEndOf="@+id/text_value_highscore"
+        android:layout_toRightOf="@+id/text_value_highscore"
         android:layout_alignBottom="@+id/text_value_highscore" />
 
     <TableLayout
