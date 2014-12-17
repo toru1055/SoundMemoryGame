@@ -9,9 +9,27 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+
 public class TopActivity extends Activity {
+    private AdView adView;
+
+    private void makeAdView() {
+        adView = new AdView(this);
+        adView.setAdUnitId(getString(R.string.ad_unit_id));
+        adView.setAdSize(AdSize.SMART_BANNER);
+        FrameLayout layout = (FrameLayout) findViewById(R.id.layout_ad_frame);
+        layout.addView(adView);
+        com.google.android.gms.ads.AdRequest adRequest = new com.google.android.gms.ads.AdRequest.Builder()
+                .addTestDevice(getString(R.string.test_device_id))
+                .build();
+        adView.loadAd(adRequest);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +64,8 @@ public class TopActivity extends Activity {
                 context.startActivity(intent);
             }
         });
+
+        makeAdView();
     }
 
 

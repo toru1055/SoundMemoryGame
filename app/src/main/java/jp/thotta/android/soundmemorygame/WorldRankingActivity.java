@@ -9,8 +9,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
@@ -24,6 +27,19 @@ public class WorldRankingActivity extends Activity implements
     private static final int RC_SIGN_IN = 9001;
     private static final int REQUEST_LEADER_BOARD = 9002;
     private boolean mResolvingConnectionFailure = false;
+    private AdView adView;
+
+    private void makeAdView() {
+        adView = new AdView(this);
+        adView.setAdUnitId(getString(R.string.ad_unit_id));
+        adView.setAdSize(AdSize.MEDIUM_RECTANGLE);
+        FrameLayout layout = (FrameLayout) findViewById(R.id.layout_ad_frame);
+        layout.addView(adView);
+        com.google.android.gms.ads.AdRequest adRequest = new com.google.android.gms.ads.AdRequest.Builder()
+                .addTestDevice(getString(R.string.test_device_id))
+                .build();
+        adView.loadAd(adRequest);
+    }
 
     @Override
     protected void onStart() {
@@ -65,6 +81,7 @@ public class WorldRankingActivity extends Activity implements
                 Toast.makeText(v.getContext(), "Connecting to Google Play Game.", Toast.LENGTH_LONG).show();
             }
         });
+        makeAdView();
     }
 
 

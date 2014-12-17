@@ -1,23 +1,15 @@
 package jp.thotta.android.soundmemorygame;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.content.IntentSender;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.games.Games;
-import com.google.android.gms.plus.Plus;
-
 
 public class SelectModeActivity extends Activity {
     private AdView adView;
@@ -43,7 +35,7 @@ public class SelectModeActivity extends Activity {
     private void makeAdView() {
         adView = new AdView(this);
         adView.setAdUnitId(getString(R.string.ad_unit_id));
-        adView.setAdSize(AdSize.BANNER);
+        adView.setAdSize(AdSize.SMART_BANNER);
         FrameLayout layout = (FrameLayout) findViewById(R.id.layout_ad_frame);
         layout.addView(adView);
         com.google.android.gms.ads.AdRequest adRequest = new com.google.android.gms.ads.AdRequest.Builder()

@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eeeeee"
     tools:context="jp.thotta.android.soundmemorygame.TopActivity">
 
     <ImageView
@@ -57,6 +56,13 @@
         android:textSize="30dp"
         android:textStyle="bold"
         android:textColor="@color/common_signin_btn_dark_text_default" />
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout_ad_frame"
+        android:layout_alignParentBottom="true">
+    </FrameLayout>
 
 
 </RelativeLayout>
