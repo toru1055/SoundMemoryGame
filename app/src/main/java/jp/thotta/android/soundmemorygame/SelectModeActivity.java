@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -47,6 +48,24 @@ public class SelectModeActivity extends Activity {
         adView.loadAd(adRequest);
     }
 
+    private void setResults(ScoreRecordDBHelper db) {
+        setModeResult(db, ScoreRecordBean.GAME_MODE_EASY,
+                R.id.text_value_question_easy, R.id.text_value_score_easy);
+        setModeResult(db, ScoreRecordBean.GAME_MODE_NORMAL,
+                R.id.text_value_question_normal, R.id.text_value_score_normal);
+        setModeResult(db, ScoreRecordBean.GAME_MODE_HARD,
+                R.id.text_value_question_hard, R.id.text_value_score_hard);
+        setModeResult(db, ScoreRecordBean.GAME_MODE_SUPER_HARD,
+                R.id.text_value_question_super_hard, R.id.text_value_score_super_hard);
+    }
+    private void setModeResult(ScoreRecordDBHelper db, int mode, int viewQuestionId, int viewScoreId) {
+        TextView viewQuestion = (TextView) findViewById(viewQuestionId);
+        TextView viewScore = (TextView) findViewById(viewScoreId);
+        ScoreRecordBean result = db.getHighScoreObject(mode);
+        viewQuestion.setText(String.valueOf(result.getQuestion()));
+        viewScore.setText(String.valueOf(result.getScore()));
+    }
+
     private void setModeButtonStatusAll(ScoreRecordDBHelper db) {
         Button btn_normal = (Button)findViewById(R.id.button_normal);
         Button btn_hard = (Button)findViewById(R.id.button_hard);
@@ -65,6 +84,7 @@ public class SelectModeActivity extends Activity {
         super.onResume();
         ScoreRecordDBHelper db = new ScoreRecordDBHelper(this);
         setModeButtonStatusAll(db);
+        setResults(db);
     }
 
     @Override
