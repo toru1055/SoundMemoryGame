@@ -11,18 +11,18 @@
     <TextView android:text="To see World Ranking, You should login to Google Plus." android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="1dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="fill_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Login and See ranking"
         android:id="@+id/button_world_ranking"
         android:background="@drawable/blue_button"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:textStyle="bold"
         android:textColor="@color/common_signin_btn_dark_text_default"
         android:layout_below="@+id/textView"
@@ -30,13 +30,13 @@
         android:layout_alignParentStart="true" />
     <Button
         android:layout_width="fill_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Return to Top"
         android:id="@+id/button_return_to_top"
         android:background="@drawable/blue_button"
-        android:textSize="30dp"
-        android:layout_marginTop="16dp"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
         android:textStyle="bold"
         android:textColor="@color/common_signin_btn_dark_text_default"
         android:layout_below="@+id/button_world_ranking"
@@ -48,7 +48,7 @@
         android:layout_height="250dp"
         android:id="@+id/layout_ad_frame"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="0dp"
         android:layout_alignParentBottom="true">
     </FrameLayout>
 
