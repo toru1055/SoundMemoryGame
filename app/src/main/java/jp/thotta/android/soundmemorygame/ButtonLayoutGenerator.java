@@ -51,7 +51,7 @@ public class ButtonLayoutGenerator {
                 btn.setText(onkai[btn.getId() % onkai.length]);
                 btn.setOnTouchListener(circleTouchListener);
                 btn.setTextColor(Color.parseColor("#ffffff"));
-                btn.setTextSize(circlePixels / 4);
+                btn.setTextSize(circlePixels / 6);
                 btn.setTypeface(null, Typeface.BOLD);
                 tableRow.addView(btn);
             }
